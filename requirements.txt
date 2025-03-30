@@ -1,5 +1,4 @@
-# requirements.txt
 notion-client==2.3.0
-dashscope==1.18.2
+dashscope==1.20.14  # 修正为存在的版本
 spacy==3.7.0
 https://github.com/explosion/spacy-models/releases/download/zh_core_web_sm-3.7.0/zh_core_web_sm-3.7.0-py3-none-any.whl
