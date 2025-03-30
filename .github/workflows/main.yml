@@ -35,3 +35,6 @@ jobs:
           NOTION_API_KEY: ${{ secrets.NOTION_API_KEY }}
           DASHSCOPE_API_KEY: ${{ secrets.ALIYUN_KEY_SECRET }}
         run: python main.py
+        
+      - name: Install FFmpeg
+        run: sudo apt-get update && sudo apt-get install -y ffmpeg
