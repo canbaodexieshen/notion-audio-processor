@@ -1,0 +1,37 @@
+name: Process Audio
+on:
+  schedule:
+    - cron: '*/30 * * * *'
+  workflow_dispatch:
+
+jobs:
+  process:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+          
+      - name: Install system dependencies
+        run: sudo apt-get update && sudo apt-get install -y ffmpeg
+          
+      - name: Install Python packages
+        run: |
+          pip install --upgrade pip
+          pip install dashscope>=1.16.0 --force-reinstall
+          pip install -r requirements.txt
+          python -m spacy download zh_core_web_sm
+          
+      - name: Verify installation
+        run: |
+          python -c "import dashscope; print('DashScope可用性检查通过')"
+          pip show dashscope
+          
+      - name: Run processor
+        env:
+          NOTION_API_KEY: ${{ secrets.NOTION_API_KEY }}
+          DASHSCOPE_API_KEY: ${{ secrets.ALIYUN_KEY_SECRET }}
+        run: python main.py
